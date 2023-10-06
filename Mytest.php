@@ -8,5 +8,7 @@ class MyTest extends TestCase
 				        $result = 1 + 2;
 					        $this->assertEquals(3, $result);
 					    }
+
 }
+
 
