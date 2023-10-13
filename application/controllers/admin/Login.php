@@ -14,7 +14,7 @@ $validate=$this->Admin_Login_Model->validatelogin($username,$password);
 if($validate)
 {
 $this->session->set_userdata('adid',$validate);
-return redirect('admin/dashboard');
+#return redirect('admin/dashboard');
 } else{
 $this->session->set_flashdata('error', 'Invalid details. Please try again with valid details');
 #redirect('admin/login');
