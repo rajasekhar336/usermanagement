@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') || exit('No direct script access allowed');
 Class Login extends CI_Controller {
 
 
@@ -17,7 +17,7 @@ $this->session->set_userdata('adid',$validate);
 return redirect('admin/dashboard');
 } else{
 $this->session->set_flashdata('error', 'Invalid details. Please try again with valid details');
-redirect('admin/login');
+#redirect('admin/login');
 
 }
 
@@ -30,7 +30,6 @@ $this->load->view('admin/login');
 public function logout(){
 $this->session->unset_userdata('adid');
 $this->session->sess_destroy();
-return redirect('admin/login');
+#return redirect('admin/login');
 }
-
 }
