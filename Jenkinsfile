@@ -1,30 +1,15 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('SonarQube') {
-  environment {
-    SCANNER_HOME = tool 'sonar scanner jenkins'
-    ORGANIZATION = "poc.net"
-    PROJECT_NAME = "org.sonarqube:poc.net"
+node {
+  stage('SCM') {
+    git 'https://github.com/rajasekhar336/usermanagement.git'
   }
-  steps {
-    withSonarQubeEnv('sonarqube') {
-        bat "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.organization=${ORGANIZATION} \
-        -Dsonar.java.binaries=compiled \
-        -Dsonar.projectKey=${PROJECT_NAME} \
-        -Dsonar.sources=POCStudentCrud"
+  stage('SonarQube analysis') {
+    def scannerHome = tool 'SonarScanner 4.0';
+    withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
+      sh "${scannerHome}/bin/sonar-scanner"
     }
   }
-  }
 }
-}
+
 
 
             
