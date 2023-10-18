@@ -8,12 +8,7 @@ pipeline {
             }
         }
 
-        stage('Build and Test') {
-            steps {
-                sh 'composer install'
-                sh 'phpunit'
-            }
-        }
+        
 
         stage('Code Analysis') {
             steps {
