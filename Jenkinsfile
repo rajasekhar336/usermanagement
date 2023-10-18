@@ -8,17 +8,24 @@ pipeline {
             }
         }
 
-        
-
-        stage('Code Analysis') {
+        stage('Build') {
             steps {
-                script {
-                    def scannerHome = tool name: ' SonarQube', type: 'hudson.plugins.sonar.MsBuildSQRunnerInstallation'
-                    withSonarQubeEnv('sonarqube') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
+                // Add your PHP build commands here
+            }
+        }
+
+        stage('Run SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh 'sonar-scanner'
                 }
             }
+        }
+    }
+
+    post {
+        failure {
+            // Add steps to execute in case of build failure
         }
     }
 }
