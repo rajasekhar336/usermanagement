@@ -8,24 +8,23 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                // Add your PHP build commands here
-            }
-        }
-
-        stage('Run SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh 'sonar-scanner'
-                }
-            }
-        }
+        stage('SonarQube') {
+  environment {
+    SCANNER_HOME = tool 'sonar scanner jenkins'
+    ORGANIZATION = "poc.net"
+    PROJECT_NAME = "org.sonarqube:poc.net"
+  }
+  steps {
+    withSonarQubeEnv('sonarqube') {
+        bat "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.organization=${ORGANIZATION} \
+        -Dsonar.java.binaries=compiled \
+        -Dsonar.projectKey=${PROJECT_NAME} \
+        -Dsonar.sources=POCStudentCrud"
     }
-
-    post {
-        failure {
-            // Add steps to execute in case of build failure
-        }
-    }
+  }
+  }
 }
+}
+
+
+            
