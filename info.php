@@ -1,3 +1,3 @@
 <?php
-phpinfo();
+hi this is rajasekhar
 ?>
